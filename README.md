@@ -10,6 +10,10 @@ A Streamlit web application for translating documents using Azure AI Translator 
 - **Secure Authentication**: Uses Azure Entra ID (DefaultAzureCredential) - no API keys or SAS tokens required
 - **Simple UI**: Clean Streamlit interface with progress tracking
 
+## Screenshot
+
+![Document Translator](screenshot.png)
+
 ## Prerequisites
 
 - Python 3.8+
