@@ -6,12 +6,26 @@ import time
 from azure.storage.blob import BlobServiceClient
 from azure.identity import DefaultAzureCredential
 import os
+from dotenv import load_dotenv
 
-# Configuration - Replace with your values or use environment variables
-TRANSLATOR_ENDPOINT = os.environ.get("TRANSLATOR_ENDPOINT", "https://eastuss1.cognitiveservices.azure.com/")
+# Load environment variables from .env file
+load_dotenv()
+
+# Configuration - Required environment variables
+def get_required_env(name: str) -> str:
+    """Get a required environment variable or raise an error with guidance."""
+    value = os.environ.get(name)
+    if not value:
+        raise ValueError(
+            f"Missing required environment variable: {name}. "
+            f"Please set it before running the app."
+        )
+    return value
+
+TRANSLATOR_ENDPOINT = get_required_env("TRANSLATOR_ENDPOINT")
 
 # Storage configuration using Entra ID (Managed Identity)
-STORAGE_ACCOUNT_URL = os.environ.get("STORAGE_ACCOUNT_URL", "https://storagean2023.blob.core.windows.net")
+STORAGE_ACCOUNT_URL = get_required_env("STORAGE_ACCOUNT_URL")
 INPUT_CONTAINER = os.environ.get("INPUT_CONTAINER", "doctranslatorinput")
 OUTPUT_CONTAINER = os.environ.get("OUTPUT_CONTAINER", "doctranslatoroutput")
 
